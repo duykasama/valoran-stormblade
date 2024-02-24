@@ -12,7 +12,7 @@ public class StartMenu : MonoBehaviour
 
     public void OpenSettingsMenu()
     {
-
+        SceneManager.LoadScene("SettingsMenu");
     }
 
     public void Quit()
