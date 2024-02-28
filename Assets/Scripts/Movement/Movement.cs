@@ -38,6 +38,10 @@ public class Movement : MonoBehaviour
     {
         dirX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.SetTrigger("isAttacking");
+        }
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
