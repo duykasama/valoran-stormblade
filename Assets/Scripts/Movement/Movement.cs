@@ -8,10 +8,17 @@ public class Movement : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     public bool isGrounded = false;
-
+    public Transform attackPoint;
+    public float attackRange = 0.5f;
+    public LayerMask enemyLayers;
+    private Transform enemy;
+    private HealthPlayer player;
+   
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 12f;
+    [SerializeField] private int damageAmount = 10;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -31,28 +38,33 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
+        player = GetComponent<HealthPlayer>();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        dirX = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
-        if (Input.GetMouseButtonDown(0))
-        {
-            animator.SetTrigger("isAttacking");
-        }
-        if (isGrounded && Input.GetButtonDown("Jump"))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            animator.SetBool("isJumping", false);
+        if (player.isAlive) {
+            dirX = Input.GetAxis("Horizontal");
+            rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+            if (Input.GetMouseButtonDown(1))
+            {
+                Attack();
+            }
+            if (isGrounded && Input.GetButtonDown("Jump"))
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                animator.SetBool("isJumping", false);
 
-            animator.SetBool("isJumping", true);
+                animator.SetBool("isJumping", true);
+            }
+            else
+            {
+                animator.SetBool("isJumping", false);
+            }
+            UpdateANimation();
         }
-        else {
-            animator.SetBool("isJumping", false);
-        }
-        UpdateANimation();
     }
 
     private void UpdateANimation()
@@ -71,5 +83,29 @@ public class Movement : MonoBehaviour
         {
             animator.SetBool("isRunning", false);
         }
+    }
+    public void Attack()
+    {
+        animator.SetTrigger("isAttacking");
+
+        if (enemy != null)
+        {
+            HealthEnemy enemyHealth = enemy.GetComponent<HealthEnemy>();
+            if (enemyHealth != null)
+            {
+                Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+                foreach (Collider2D hitEnemy in hitEnemies)
+                {
+                    enemyHealth.TakeDamage(damageAmount);
+                    Debug.Log("Hit enemy");
+                }
+            }
+        }
+    }
+
+    public void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null) return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

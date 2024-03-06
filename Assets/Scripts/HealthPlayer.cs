@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthPlayer : MonoBehaviour
 {
@@ -10,6 +12,12 @@ public class HealthPlayer : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     [SerializeField] FloatingHealthBar healthBar;
+    private UIManager uIManager;
+    public bool isAlive = true;
+    private void Awake()
+    {
+        uIManager = FindObjectOfType<UIManager>();
+    }
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -21,7 +29,7 @@ public class HealthPlayer : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-
+        if (!isAlive) return;
         currentHealth -= damage;
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
         Debug.Log(currentHealth.ToString());
@@ -34,6 +42,8 @@ public class HealthPlayer : MonoBehaviour
     {
         rb.bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("isDeath");
+        isAlive = false;
+        uIManager.GameOver();
     }
-
+   
 }

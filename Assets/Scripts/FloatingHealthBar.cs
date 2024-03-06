@@ -10,11 +10,4 @@ public class FloatingHealthBar : MonoBehaviour
     public void UpdateHealthBar(int currentValue,float maxValue) { 
         healthBar.value = currentValue/maxValue;
     }
-
-    
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

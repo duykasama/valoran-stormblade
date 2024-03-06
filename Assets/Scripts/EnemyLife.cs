@@ -4,27 +4,100 @@ using UnityEngine;
 
 public class EnemyLife : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float detectionRange = 30f;
+    [SerializeField] private float toAttackRange = 8f;
+    [SerializeField] private int damageAmount = 10;
+    [SerializeField] private float attackCooldown = 2f; 
+    public Transform attackPoint;
+    public float attackRange = 0.5f;
+    public LayerMask playerLayers;
     private Animator anim;
-    void Start()
-    {
-        anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
+    private Transform player;
+    private SpriteRenderer spriteRenderer;
+    private bool isAttacking = false;
+    public bool isAlive = true;
+    private float lastAttackTime = 0f; 
+    public HealthPlayer playerHealth;
 
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void Start()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerHealth = player.GetComponent<HealthPlayer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        if (player != null && isAlive)
         {
-            Debug.Log("touch");
-            HealthPlayer playerHealth = GetComponent<HealthPlayer>();
-            if (playerHealth != null)
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+            if (distanceToPlayer <= detectionRange)
             {
-                playerHealth.TakeDamage(10);
+                Vector3 direction = player.position - transform.position;
+                direction.y = 0f;
+                direction.Normalize();
+
+                if (distanceToPlayer <= toAttackRange && playerHealth.isAlive)
+                {
+                    if (!isAttacking && Time.time - lastAttackTime >= attackCooldown)
+                    {
+                        Attack();
+                        lastAttackTime = Time.time;
+                        anim.SetBool("isMoving", false);
+                    }
+                }
+                else
+                {
+                    transform.position += direction * moveSpeed * Time.deltaTime;
+
+                    if (direction.x < 0)
+                    {
+                        spriteRenderer.flipX = true;
+                        anim.SetBool("isMoving", true);
+                    }
+                    else if (direction.x > 0)
+                    {
+                        spriteRenderer.flipX = false;
+                        anim.SetBool("isMoving", true);
+                    }
+                    else
+                    {
+                        anim.SetBool("isMoving", false);
+                    }
+
+                    isAttacking = false;
+                }
+            }
+            else
+            {
+                anim.SetBool("isMoving", false);
+                isAttacking = false;
             }
         }
     }
 
+    public void Attack()
+    {
+        anim.SetTrigger("attack");
 
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayers);
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(damageAmount);
+        }
+        foreach (var enemy in hitEnemies)
+        {
+            Debug.Log("Enemy attacked player.");
+        }
+    }
 
+    public void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null) return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
 }
