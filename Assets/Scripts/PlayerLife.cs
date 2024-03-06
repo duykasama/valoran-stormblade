@@ -23,6 +23,20 @@ public class PlayerLife : MonoBehaviour
                 playerHealth.TakeDamage(10);
             }
         }
+         else if (collision.gameObject.CompareTag("SuperTrap"))
+        {
+            Debug.Log("touch");
+            HealthPlayer playerHealth = GetComponent<HealthPlayer>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(100);
+            }
+        }
+        else if (collision.gameObject.CompareTag("Finish"))
+        {
+            Debug.Log("touch");
+            SceneManager.LoadScene("level2");
+        }
     }
   
 

@@ -8,6 +8,9 @@ TagManager:
   - Enemy
   - Checkpoint
   - Trap
+  - SlideBar
+  - SuperTag
+  - SuperTrap
   layers:
   - Default
   - TransparentFX
@@ -15,8 +18,8 @@ TagManager:
   - user
   - Water
   - UI
-  - 
-  - 
+  - Enemies
+  - Player
   - 
   - 
   - 
