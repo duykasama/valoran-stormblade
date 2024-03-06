@@ -34,9 +34,9 @@ public class EnemyProjectile : EnemyDamage
             gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
-        hit = true;
+        hit = false;
         base.OnTriggerEnter2D(collision); //Execute logic from parent script first
         coll.enabled = false;
 
@@ -44,7 +44,7 @@ public class EnemyProjectile : EnemyDamage
             anim.SetTrigger("explode"); //When the object is a fireball explode it
         else
             gameObject.SetActive(false); //When this hits any object deactivate arrow
-    }
+    }*/
     private void Deactivate()
     {
         gameObject.SetActive(false);
