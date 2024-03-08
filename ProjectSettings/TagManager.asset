@@ -11,6 +11,7 @@ TagManager:
   - SlideBar
   - SuperTag
   - SuperTrap
+  - EnemyA
   layers:
   - Default
   - TransparentFX

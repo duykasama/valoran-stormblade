@@ -40,7 +40,6 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
-        enemyA = GameObject.FindGameObjectWithTag("EnemyA").transform;
         player = GetComponent<HealthPlayer>();
     }
 
@@ -92,7 +91,6 @@ public class Movement : MonoBehaviour
 
         if (enemy != null )
         {
-         
             HealthEnemy enemyHealth = enemy.GetComponent<HealthEnemy>();
             if (enemyHealth != null)
             {
