@@ -18,7 +18,7 @@ public class EnemyLife : MonoBehaviour
     private bool isAttacking = false;
     public bool isAlive = true;
     private float lastAttackTime = 0f; 
-    public HealthPlayer playerHealth;
+    private HealthPlayer playerHealth;
 
 
     private void Start()
@@ -88,10 +88,6 @@ public class EnemyLife : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.TakeDamage(damageAmount);
-        }
-        foreach (var enemy in hitEnemies)
-        {
-            Debug.Log("Enemy attacked player.");
         }
     }
 
