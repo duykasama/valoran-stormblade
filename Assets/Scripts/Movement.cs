@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
     private Transform enemy;
+    private Transform enemyA;
     private HealthPlayer player;
    
     private float dirX = 0f;
@@ -39,6 +40,7 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
+        enemyA = GameObject.FindGameObjectWithTag("EnemyA").transform;
         player = GetComponent<HealthPlayer>();
     }
 
@@ -88,20 +90,24 @@ public class Movement : MonoBehaviour
     {
         animator.SetTrigger("isAttacking");
 
-        if (enemy != null)
+        if (enemy != null )
         {
+         
             HealthEnemy enemyHealth = enemy.GetComponent<HealthEnemy>();
             if (enemyHealth != null)
             {
                 Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
                 foreach (Collider2D hitEnemy in hitEnemies)
                 {
-                    enemyHealth.TakeDamage(damageAmount);
-                    Debug.Log("Hit enemy");
+                    if (hitEnemy.CompareTag("Enemy"))
+                    {
+                        enemyHealth.TakeDamage(damageAmount);
+                    }
                 }
             }
         }
     }
+    
 
     public void OnDrawGizmosSelected()
     {

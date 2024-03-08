@@ -17,7 +17,6 @@ public class PlayerLife : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Trap"))
         {
-            Debug.Log("touch");
             HealthPlayer playerHealth = GetComponent<HealthPlayer>();
             if (playerHealth != null) {
                 playerHealth.TakeDamage(10);
@@ -25,7 +24,6 @@ public class PlayerLife : MonoBehaviour
         }
          else if (collision.gameObject.CompareTag("SuperTrap"))
         {
-            Debug.Log("touch");
             HealthPlayer playerHealth = GetComponent<HealthPlayer>();
             if (playerHealth != null)
             {
@@ -34,7 +32,6 @@ public class PlayerLife : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Finish"))
         {
-            Debug.Log("touch");
             SceneManager.LoadScene("level2");
         }
     }

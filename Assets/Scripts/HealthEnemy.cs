@@ -5,7 +5,7 @@ using UnityEngine;
 public class HealthEnemy : MonoBehaviour
 {
     public int maxHealth = 100;
-    private int currentHealth;
+    public int currentHealth;
     private Rigidbody2D rb;
     private Animator anim;
     [SerializeField] FloatingHealthBar healthBar;
@@ -27,7 +27,6 @@ public class HealthEnemy : MonoBehaviour
         if (enemyLife.isAlive == false) return;
         currentHealth -= damage;
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
-        Debug.Log(currentHealth.ToString());
         if (currentHealth <= 0)
         {
             Die();
@@ -36,7 +35,6 @@ public class HealthEnemy : MonoBehaviour
 
     public void Die()
     {
-        //rb.bodyType = RigidbodyType2D.Static;
         enemyLife.isAlive = false;
         anim.SetTrigger("die");
         StartCoroutine(DeactivateAfterDelay(1f));
