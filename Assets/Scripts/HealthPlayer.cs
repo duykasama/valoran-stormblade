@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HealthPlayer : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class HealthPlayer : MonoBehaviour
     [SerializeField] FloatingHealthBar healthBar;
     private UIManager uIManager;
     public bool isAlive = true;
+    private Slider BloodBar;
     private void Awake()
     {
         uIManager = FindObjectOfType<UIManager>();
@@ -25,6 +27,7 @@ public class HealthPlayer : MonoBehaviour
         currentHealth = maxHealth;
         healthBar = GetComponentInChildren<FloatingHealthBar>();
         healthBar.UpdateHealthBar(currentHealth,maxHealth);
+        BloodBar = GameObject.FindWithTag("Player").GetComponentInChildren<Slider>();
     }
 
     public void TakeDamage(int damage)
@@ -40,8 +43,9 @@ public class HealthPlayer : MonoBehaviour
 
     private void Die()
     {
-        rb.bodyType = RigidbodyType2D.Static;
+        //rb.bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("isDeath");
+        BloodBar.gameObject.SetActive(false);
         isAlive = false;
         uIManager.GameOver();
     }

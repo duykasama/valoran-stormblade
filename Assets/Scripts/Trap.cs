@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class Trap : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public int damagePerSecond = 5;
+    private HealthPlayer playerHealth;
+
+    public void Start()
     {
-        if (collision.CompareTag("Player")) {
-            //Debug.Log("touch");
-            //HealthPlayer playerHealth = GetComponent<HealthPlayer>();
-            //if (playerHealth != null) {
-            //    playerHealth.TakeDamage(10);
-            //}
-        }
+        playerHealth = FindObjectOfType<HealthPlayer>();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        InvokeRepeating("ApplyDamage", 0f, 1f);
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        CancelInvoke("ApplyDamage");
+    }
+
+    private void ApplyDamage()
+    {
+        playerHealth.TakeDamage(damagePerSecond);
     }
 }

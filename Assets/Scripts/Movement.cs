@@ -11,8 +11,8 @@ public class Movement : MonoBehaviour
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
-    private Transform enemy;
     private Transform enemyA;
+    private Transform enemyB;
     private HealthPlayer player;
    
     private float dirX = 0f;
@@ -39,7 +39,8 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
+        enemyA = GameObject.FindGameObjectWithTag("EnemyA").transform;
+        enemyB = GameObject.FindGameObjectWithTag("EnemyB").transform;
         player = GetComponent<HealthPlayer>();
     }
 
@@ -88,20 +89,22 @@ public class Movement : MonoBehaviour
     public void Attack()
     {
         animator.SetTrigger("isAttacking");
-
-        if (enemy != null )
+        HealthEnemyA enemyHealthA = enemyA.GetComponent<HealthEnemyA>();
+        HealthEnemyB enemyHealthB = enemyB.GetComponent<HealthEnemyB>();
+        Debug.Log(enemyHealthA.currentHealth.ToString());
+        Debug.Log(enemyHealthB.currentHealth.ToString());
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        foreach (Collider2D hitEnemy in hitEnemies)
         {
-            HealthEnemy enemyHealth = enemy.GetComponent<HealthEnemy>();
-            if (enemyHealth != null)
+            if (hitEnemy.CompareTag("EnemyA"))
             {
-                Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-                foreach (Collider2D hitEnemy in hitEnemies)
-                {
-                    if (hitEnemy.CompareTag("Enemy"))
-                    {
-                        enemyHealth.TakeDamage(damageAmount);
-                    }
-                }
+                Debug.Log("hit enemy A");
+                enemyHealthA.TakeDamage(damageAmount);
+            }
+            if (hitEnemy.CompareTag("EnemyB"))
+            {
+                Debug.Log("hit enemy B");
+                enemyHealthB.TakeDamage(damageAmount);
             }
         }
     }

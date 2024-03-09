@@ -41,7 +41,8 @@ public class EnemyProjectile : MonoBehaviour
         {
             if (collision.GetComponent<HealthPlayer>() != null)
             {
-                collision.GetComponent<HealthPlayer>().TakeDamage(damage2);               
+                collision.GetComponent<HealthPlayer>().TakeDamage(damage2);
+                Deactivate();
             }
         }
     }

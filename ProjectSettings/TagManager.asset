@@ -12,6 +12,7 @@ TagManager:
   - SuperTag
   - SuperTrap
   - EnemyA
+  - EnemyB
   layers:
   - Default
   - TransparentFX
@@ -46,6 +47,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: New Layer -1
+    uniqueID: 902087563
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
