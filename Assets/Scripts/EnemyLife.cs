@@ -58,11 +58,13 @@ public class EnemyLife : MonoBehaviour
                     {
                         spriteRenderer.flipX = true;
                         anim.SetBool("isMoving", true);
+                        attackPoint.localPosition = new Vector3(-0.95f, -0.75f, 0f);
                     }
                     else if (direction.x > 0)
                     {
                         spriteRenderer.flipX = false;
                         anim.SetBool("isMoving", true);
+                        attackPoint.localPosition = new Vector3(0.95f, -0.75f, 0f);
                     }
                     else
                     {
@@ -85,9 +87,11 @@ public class EnemyLife : MonoBehaviour
         anim.SetTrigger("attack");
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayers);
-        if (playerHealth != null)
+        foreach (var hitEnemy in hitEnemies)
         {
-            playerHealth.TakeDamage(damageAmount);
+            if (hitEnemy.CompareTag("Player")) {
+                playerHealth.TakeDamage(damageAmount);
+            }
         }
     }
 

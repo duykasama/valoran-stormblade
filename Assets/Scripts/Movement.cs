@@ -49,9 +49,20 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (player.isAlive) {
+        if (player.isAlive)
+        {
             dirX = Input.GetAxis("Horizontal");
             rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+
+            if (!isGrounded && rb.velocity.y < 0)
+            {
+                animator.SetBool("isFalling", true);
+            }
+            else
+            {
+                animator.SetBool("isFalling", false);
+            }
+
             if (Input.GetMouseButtonDown(1))
             {
                 Attack();
@@ -59,8 +70,6 @@ public class Movement : MonoBehaviour
             if (isGrounded && Input.GetButtonDown("Jump"))
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                animator.SetBool("isJumping", false);
-
                 animator.SetBool("isJumping", true);
             }
             else
@@ -71,17 +80,21 @@ public class Movement : MonoBehaviour
         }
     }
 
+
     private void UpdateANimation()
     {
         if (dirX > 0f)
         {
             animator.SetBool("isRunning", true);
             spriteRenderer.flipX = false;
+            attackPoint.localPosition = new Vector3(1, 1, 0);
         }
         else if (dirX < 0f)
         {
             animator.SetBool("isRunning", true);
             spriteRenderer.flipX = true;
+            attackPoint.localPosition = new Vector3(-1, 1, 0);
+
         }
         else
         {
