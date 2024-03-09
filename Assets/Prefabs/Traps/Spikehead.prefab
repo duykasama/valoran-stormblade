@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1775712891
-  m_SortingLayer: 0
+  m_SortingLayerID: 897717779
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1508ab85aab80754fb0213cd79267961, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -177,5 +177,5 @@ MonoBehaviour:
   checkDelay: 1
   playerLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 0
   impactSound: {fileID: 8300000, guid: c484f96621aef5f41a6740ae4f6dcebf, type: 3}

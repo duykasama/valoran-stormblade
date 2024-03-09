@@ -1,14 +1,15 @@
 using UnityEngine;
 
-public class EnemyProjectile : EnemyDamage
+public class EnemyProjectile : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float resetTime;
     private float lifetime;
     private Animator anim;
     private BoxCollider2D coll;
-
+    [SerializeField] protected int damage2;
     private bool hit;
+    
 
     private void Awake()
     {
@@ -34,17 +35,17 @@ public class EnemyProjectile : EnemyDamage
             gameObject.SetActive(false);
     }
 
-    /*private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        hit = false;
-        base.OnTriggerEnter2D(collision); //Execute logic from parent script first
-        coll.enabled = false;
-
-        if (anim != null)
-            anim.SetTrigger("explode"); //When the object is a fireball explode it
-        else
-            gameObject.SetActive(false); //When this hits any object deactivate arrow
-    }*/
+        if (collision.tag == "Player")
+        {
+            if (collision.GetComponent<HealthPlayer>() != null)
+            {
+                collision.GetComponent<HealthPlayer>().TakeDamage(damage2);               
+            }
+        }
+    }
+    
     private void Deactivate()
     {
         gameObject.SetActive(false);
