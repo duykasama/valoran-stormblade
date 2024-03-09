@@ -10,6 +10,11 @@ public class StartMenu : MonoBehaviour
         SceneManager.LoadScene("Level1");
     }
 
+    public void OpenHowToPlay()
+    {
+        SceneManager.LoadScene("HowToPlay");
+    }
+
     public void OpenSettingsMenu()
     {
         SceneManager.LoadScene("SettingsMenu");
