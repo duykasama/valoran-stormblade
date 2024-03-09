@@ -37,15 +37,6 @@ public class Enemy_Sideways : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        collision.transform.SetParent(transform);
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        collision.transform.SetParent(null);
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
