@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Spikehead : EnemyDamage
+public class Spikehead : MonoBehaviour
 {
     [Header("SpikeHead Attributes")]
     [SerializeField] private float speed;
@@ -11,7 +11,8 @@ public class Spikehead : EnemyDamage
     private Vector3 destination;
     private float checkTimer;
     private bool attacking;
-
+    private int checkAttack = 0;
+    [SerializeField] protected int damage2;
     [Header("SFX")]
     [SerializeField] private AudioClip impactSound;
 
@@ -34,7 +35,7 @@ public class Spikehead : EnemyDamage
     private void CheckForPlayer()
     {
         CalculateDirections();
-
+        checkAttack += 1;
         //Check if spikehead sees player in all 4 directions
         for (int i = 0; i < directions.Length; i++)
         {
@@ -47,6 +48,10 @@ public class Spikehead : EnemyDamage
                 destination = directions[i];
                 checkTimer = 0;
             }
+        }
+        if (checkAttack == 1)
+        {
+            Stop();
         }
     }
     private void CalculateDirections()
@@ -64,8 +69,15 @@ public class Spikehead : EnemyDamage
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        SoundManager.instance.PlaySound(impactSound);
-        base.OnTriggerEnter2D(collision);
+        /*        SoundManager.instance.PlaySound(impactSound);
+        */
+        if (collision.tag == "Player")
+        {
+            if (collision.GetComponent<HealthPlayer>() != null)
+            {
+                collision.GetComponent<HealthPlayer>().TakeDamage(damage2);
+            }
+        }
         Stop(); //Stop spikehead once he hits something
     }
 }

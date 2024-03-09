@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Firetrap : MonoBehaviour
 {
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
 
     [Header("Firetrap Timers")]
     [SerializeField] private float activationDelay;
@@ -17,7 +17,7 @@ public class Firetrap : MonoBehaviour
     private bool triggered; //when the trap gets triggered
     private bool active; //when the trap is active and can hurt the player
 
-    private Health playerHealth;
+    private HealthPlayer playerHealth;
 
     private void Awake()
     {
@@ -35,13 +35,13 @@ public class Firetrap : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            playerHealth = collision.GetComponent<Health>();
+            playerHealth = collision.GetComponent<HealthPlayer>();
 
             if (!triggered)
                 StartCoroutine(ActivateFiretrap());
 
             if (active)
-                collision.GetComponent<Health>().TakeDamage(damage);
+                collision.GetComponent<HealthPlayer>().TakeDamage(damage);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -57,8 +57,8 @@ public class Firetrap : MonoBehaviour
 
         //Wait for delay, activate trap, turn on animation, return color back to normal
         yield return new WaitForSeconds(activationDelay);
-        SoundManager.instance.PlaySound(firetrapSound);
-        spriteRend.color = Color.white; //turn the sprite back to its initial color
+/*        SoundManager.instance.PlaySound(firetrapSound);
+*/      spriteRend.color = Color.white; //turn the sprite back to its initial color
         active = true;
         anim.SetBool("activated", true);
 
