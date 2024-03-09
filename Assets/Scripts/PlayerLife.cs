@@ -32,7 +32,7 @@ public class PlayerLife : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Finish"))
         {
-            SceneManager.LoadScene("level2");
+            SceneManager.LoadScene("ShopScene");
         }
     }
   

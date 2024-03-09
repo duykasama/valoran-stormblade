@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 613b5ad975cae124382aed4498c13902
+  - enabled: 1
+    path: Assets/Scenes/ShopScene.unity
+    guid: f6c32364af58bf045860699d0a11dfd7
   m_configObjects: {}
