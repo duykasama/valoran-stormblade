@@ -14,6 +14,11 @@ public class StartMenu : MonoBehaviour
     {
         SceneManager.LoadScene("SettingsMenu");
     }
+    
+    public void OpenHowtoPlay()
+    {
+        SceneManager.LoadScene("HowToPlay");
+    }
 
     public void Quit()
     {
