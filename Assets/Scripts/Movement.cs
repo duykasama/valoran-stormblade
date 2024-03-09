@@ -42,6 +42,8 @@ public class Movement : MonoBehaviour
         enemyA = GameObject.FindGameObjectWithTag("EnemyA").transform;
         enemyB = GameObject.FindGameObjectWithTag("EnemyB").transform;
         player = GetComponent<HealthPlayer>();
+        moveSpeed = DataManager.instance.speed;
+        damageAmount = DataManager.instance.damage;
     }
 
     // Update is called once per frame

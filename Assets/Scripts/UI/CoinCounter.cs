@@ -32,5 +32,6 @@ public class CoinCounter : MonoBehaviour
     {
         currentCoins += amount;
         coinText.text = "Coins: " + currentCoins;
+        DataManager.instance.coinsCount = currentCoins;
     }
 }

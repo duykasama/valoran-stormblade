@@ -24,7 +24,8 @@ public class HealthPlayer : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        currentHealth = maxHealth;
+        //currentHealth = maxHealth;
+        currentHealth = DataManager.instance.health;
         healthBar = GetComponentInChildren<FloatingHealthBar>();
         healthBar.UpdateHealthBar(currentHealth,maxHealth);
         BloodBar = GameObject.FindWithTag("Player").GetComponentInChildren<Slider>();
@@ -35,6 +36,7 @@ public class HealthPlayer : MonoBehaviour
         if (!isAlive) return;
         currentHealth -= damage;
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        DataManager.instance.health = currentHealth;
         Debug.Log(currentHealth.ToString());
         if (currentHealth <= 0) {
             Die();
