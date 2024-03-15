@@ -5,7 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
-    public void Play()
+	void Awake()
+	{
+		Debug.Log("Start menu awake");
+		GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlayStartMenuMusic();
+	}
+	public void Play()
     {
         SceneManager.LoadScene("Level1");
     }
