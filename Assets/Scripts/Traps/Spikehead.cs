@@ -15,6 +15,7 @@ public class Spikehead : MonoBehaviour
     [SerializeField] protected int damage2;
     [Header("SFX")]
     [SerializeField] private AudioClip impactSound;
+    private bool checkHitting = false;
 
     private void OnEnable()
     {
@@ -23,13 +24,16 @@ public class Spikehead : MonoBehaviour
     private void Update()
     {
         //Move spikehead to destination only if attacking
-        if (attacking)
-            transform.Translate(destination * Time.deltaTime * speed);
-        else
+       if(!checkHitting)
         {
-            checkTimer += Time.deltaTime;
-            if (checkTimer > checkDelay)
-                CheckForPlayer();
+            if (attacking)
+                transform.Translate(destination * Time.deltaTime * speed);
+            else
+            {
+                checkTimer += Time.deltaTime;
+                if (checkTimer > checkDelay)
+                    CheckForPlayer();
+            }
         }
     }
     private void CheckForPlayer()
@@ -76,6 +80,7 @@ public class Spikehead : MonoBehaviour
             if (collision.GetComponent<HealthPlayer>() != null)
             {
                 collision.GetComponent<HealthPlayer>().TakeDamage(damage2);
+                checkHitting = true;
             }
         }
         Stop(); //Stop spikehead once he hits something
