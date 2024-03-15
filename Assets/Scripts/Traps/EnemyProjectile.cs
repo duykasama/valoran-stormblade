@@ -9,7 +9,7 @@ public class EnemyProjectile : MonoBehaviour
     private BoxCollider2D coll;
     [SerializeField] protected int damage2;
     private bool hit;
-    
+
 
     private void Awake()
     {
@@ -37,16 +37,17 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             if (collision.GetComponent<HealthPlayer>() != null)
             {
                 collision.GetComponent<HealthPlayer>().TakeDamage(damage2);
+                Debug.Log("Haha");
                 Deactivate();
             }
         }
     }
-    
+
     private void Deactivate()
     {
         gameObject.SetActive(false);

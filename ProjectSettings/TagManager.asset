@@ -13,6 +13,7 @@ TagManager:
   - SuperTrap
   - EnemyA
   - EnemyB
+  - Victory
   layers:
   - Default
   - TransparentFX
