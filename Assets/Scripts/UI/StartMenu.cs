@@ -7,7 +7,6 @@ public class StartMenu : MonoBehaviour
 {
 	void Awake()
 	{
-		Debug.Log("Start menu awake");
 		GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlayStartMenuMusic();
 	}
 	public void Play()

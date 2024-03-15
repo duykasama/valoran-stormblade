@@ -37,9 +37,12 @@ public class HealthPlayer : MonoBehaviour
         currentHealth -= damage;
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
         DataManager.instance.health = currentHealth;
-        Debug.Log(currentHealth.ToString());
+		GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlayHurt();
+		Debug.Log(currentHealth.ToString());
         if (currentHealth <= 0) {
-            Die();
+			GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().StopMusic();
+			GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlayDeath();
+			Die();
          }
     }
 
