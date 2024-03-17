@@ -5,7 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
-    public void Play()
+	void Awake()
+	{
+		GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlayStartMenuMusic();
+	}
+	public void Play()
     {
         SceneManager.LoadScene("Level1");
     }

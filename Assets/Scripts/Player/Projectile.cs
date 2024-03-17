@@ -24,15 +24,26 @@ public class Projectile : MonoBehaviour
         lifetime += Time.deltaTime;
         if (lifetime > 5) gameObject.SetActive(false);
     }
+    public void ActivateProjectile2()
+    {
+        hit = false;
+        lifetime = 0;
+        gameObject.SetActive(true);
+        boxCollider.enabled = true;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         hit = true;
-        boxCollider.enabled = false;
-        anim.SetTrigger("explode");
+        /*        boxCollider.enabled = false;
+                anim.SetTrigger("explode");*/
 
-        if (collision.tag == "Enemy")
-            collision.GetComponent<Health>()?.TakeDamage(1);
+        if (collision.CompareTag("Player"))
+        {
+            /*collision.GetComponent<HealthPlayer>()?.TakeDamage(10);*/
+            Debug.Log("Touch");
+        }
+
     }
     public void SetDirection(float _direction)
     {

@@ -27,7 +27,8 @@ public class HealthEnemy : MonoBehaviour
         if (enemyLife.isAlive == false) return;
         currentHealth -= damage;
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
-        if (currentHealth <= 0)
+		GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlaySwordHit();
+		if (currentHealth <= 0)
         {
             Die();
         }
