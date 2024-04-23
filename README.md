@@ -25,3 +25,25 @@ Welcome to Valoran Stormblade, an exciting adventure game where players embark o
 **Build Settings:**
 - Includes necessary scenes (Start Menu Scene, How to Play Scene, Setting Scene, Level 1 Scene, Level 2 Scene, Shop Potion Scene, Victory Scene, and Game Over Scene)
 - Build: .exe
+
+**Screen Design**
+
+![Gameplay Image](Mockup/member.png)
+![Gameplay Image](Mockup/menu.png)
+![Gameplay Image](Mockup/volumn.png)
+![Gameplay Image](Mockup/instruction.png)
+![Gameplay Image](Mockup/level1.png)
+![Gameplay Image](Mockup/level2.png)
+![Gameplay Image](Mockup/potionshop.png)
+![Gameplay Image](Mockup/gameover.png)
+![Gameplay Image](Mockup/victory.png)
+
+**References**
+https://assetstore.unity.com/packages/2d/characters/hero-knight-pixel-art-165188
+https://assetstore.unity.com/packages/2d/environments/pixel-art-platformer-village-props-166114
+https://assetstore.unity.com/packages/2d/gui/icons/2d-pixel-item-asset-pack-99645
+https://assetstore.unity.com/packages/2d/characters/dragon-warrior-free-93896
+
+
+
+
